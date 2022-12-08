@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
-// eslint-disable-next-line
-import { gapi } from 'gapi-script';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import Icon from './icon';
@@ -25,41 +23,19 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
 
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-
   const switchMode = () => {
     setForm(initialState);
     setIsSignup((prevIsSignup) => !prevIsSignup);
     setShowPassword(false);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (isSignup) {
-      try {
-        dispatch(signup(form, history));
-      } catch (error) {
-        // alert
-        console.log(error.response.data.message);
-        console.log("sssssss");
-      }
+      dispatch(signup(form, history));
     } else {
       dispatch(signin(form, history));
-    }
-  };
-  // eslint-disable-next-line
-  const googleSuccessOld = async (res) => {
-    const result = res?.profileObj;
-    const token = res?.tokenId;
-
-    try {
-      dispatch({ type: AUTH, data: { result, token } });
-
-      history.push('/');
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
     }
   };
 
@@ -71,7 +47,7 @@ const SignUp = () => {
       dispatch(googleSignin(result, token, history));
       // dispatch({ type: AUTH, data: { result, token } });
 
-      history.push('/');
+      // history.push('/');
     } catch (error) {
       console.log(error);
     }
@@ -112,7 +88,7 @@ const SignUp = () => {
             )}
             onSuccess={googleSuccess}
             onFailure={googleError}
-            cookiePolicy="single_host_origin"
+            cookiePolicy={'single_host_origin'}
           />
           <Grid container justify="flex-end">
             <Grid item>

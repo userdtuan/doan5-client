@@ -2,6 +2,8 @@ import * as actionType from '../constants/actionTypes';
 
 const authReducer = (state = { authData: null }, action) => {
   switch (action.type) {
+    case actionType.ERROR_signup:
+      return { ...state, authData: action.data, loading: false, errors: action.data };
     case actionType.AUTH:
       localStorage.setItem('profile', JSON.stringify({ ...action?.data }));
 

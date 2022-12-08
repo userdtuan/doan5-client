@@ -1,15 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
-import { Link, useHistory, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import decode from "jwt-decode";
+import React, { useState, useEffect } from 'react';
+import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import decode from 'jwt-decode';
 
-import memories from "../../images/memories.png";
-import * as actionType from "../../constants/actionTypes";
-import useStyles from "./styles";
+import memories from '../../images/memories.png';
+import * as actionType from '../../constants/actionTypes';
+import useStyles from './styles';
+import { test } from '../../actions/auth';
+
+
+const testHandler = async () => {
+  const a = test("tuan");
+  alert(a);
+
+};
 
 const Navbar = () => {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
@@ -18,7 +26,7 @@ const Navbar = () => {
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
 
-    history.push("/auth");
+    history.push('/auth');
 
     setUser(null);
   };
@@ -50,14 +58,22 @@ const Navbar = () => {
         <img className={classes.image} src={memories} alt="icon" height="60" />
       </div>
       <Toolbar className={classes.toolbar}>
-          <Button
-            component={Link}
-            to="/page1"
-            variant="contained"
-            color="success"
-          >
-            Page1
-          </Button>
+        <Button
+          component={Link}
+          to="/page1"
+          variant="contained"
+          color="default"
+        >
+          Page1
+        </Button>
+        <Button
+          component={Link}
+          variant="contained"
+          color="default"
+          onClick = {()=>testHandler()}
+        >
+          test
+        </Button>
         {user?.result ? (
           <div className={classes.profile}>
             <Avatar
