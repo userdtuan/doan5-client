@@ -40,7 +40,7 @@ const Navbar = () => {
       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
     const profile = JSON.parse(localStorage.getItem("profile"));
-    if(profile.details==null){
+    if(profile && profile.details==null){
       alert("User information is null")
     }
     setUser(profile);
