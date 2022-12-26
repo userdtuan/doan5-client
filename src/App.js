@@ -6,6 +6,7 @@ import Home from './components/Home/Home';
 import Navbar from './components/Navbar/Navbar';
 import Auth from './components/Auth/Auth';
 import Page1 from './components/Page1/Page1';
+import NewArticle from './components/NewArticle/NewArticle';
 
 const App = () => (
   <BrowserRouter>
@@ -15,6 +16,7 @@ const App = () => (
         <Route path="/" exact component={Home} />
         <Route path="/auth" exact component={Auth} />
         <Route path="/page1" exact component={Page1} />
+        <Route path="/new-article" exact component={NewArticle} />
       </Switch>
     </Container>
   </BrowserRouter>

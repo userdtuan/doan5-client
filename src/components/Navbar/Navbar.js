@@ -1,23 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import decode from 'jwt-decode';
+import React, { useState, useEffect } from "react";
+import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import decode from "jwt-decode";
 
-import memories from '../../images/memories.png';
-import * as actionType from '../../constants/actionTypes';
-import useStyles from './styles';
-import { test } from '../../actions/auth';
-
+import memories from "../../images/memories.png";
+import * as actionType from "../../constants/actionTypes";
+import useStyles from "./styles";
+import { test } from "../../actions/auth";
 
 const testHandler = async () => {
   const a = test("tuan");
   alert(a);
-
 };
 
 const Navbar = () => {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
@@ -26,7 +24,7 @@ const Navbar = () => {
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
 
-    history.push('/auth');
+    history.push("/auth");
 
     setUser(null);
   };
@@ -39,11 +37,8 @@ const Navbar = () => {
 
       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
-    const profile = JSON.parse(localStorage.getItem("profile"));
-    if(profile && profile.details==null){
-      alert("User information is null")
-    }
-    setUser(profile);
+
+    setUser(JSON.parse(localStorage.getItem('profile')));
   }, [location]);
 
   return (
@@ -73,12 +68,20 @@ const Navbar = () => {
           component={Link}
           variant="contained"
           color="default"
-          onClick = {()=>testHandler()}
+          onClick={() => testHandler()}
         >
           test
         </Button>
         {user?.result ? (
           <div className={classes.profile}>
+            <Button
+              component={Link}
+              to="/new-article"
+              variant="contained"
+              color="default"
+            >
+              New
+            </Button>
             <Avatar
               className={classes.purple}
               alt={user?.result.name}

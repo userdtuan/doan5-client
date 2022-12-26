@@ -19,3 +19,4 @@ export const deletePost = (id) => API.delete(`/posts/${id}`);
 export const signIn = (formData) => API.post('/user/signin', formData);
 export const googleSignIn = (result) => API.post('/user/google/signin', result);
 export const signUp = (formData) => API.post('/user/signup', formData);
+export const updateUserDetail = (data) => API.post('/user/user-details', data);

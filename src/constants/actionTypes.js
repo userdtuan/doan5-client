@@ -7,3 +7,4 @@ export const LIKE = 'LIKE';
 export const AUTH = 'AUTH';
 export const LOGOUT = 'LOGOUT';
 export const ERROR_SIGNUP = 'ERROR_SIGNUP';
+export const UPDATE_DETAIL = 'UPDATE_DETAIL';
