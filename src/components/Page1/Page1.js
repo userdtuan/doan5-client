@@ -22,7 +22,7 @@ const Page1 = () => {
   // useRef hook to store a reference to the Quill editor instance
   const quillRef = useRef(null);
   const [formData, setFormData] = useState({
-    gender: false,
+    nau_an: false,
     image: null,
     name: "",
     square: 0,
@@ -47,16 +47,16 @@ const Page1 = () => {
   return (
     <form onSubmit={handleSubmit}>
       <FormControl>
-        <FormLabel>Gender</FormLabel>
+        <FormLabel>Nau an</FormLabel>
         <FormControlLabel
           control={
             <Checkbox
-              name="gender"
-              checked={formData.gender}
+              name="nau_an"
+              checked={formData.nau_an}
               onChange={handleChange}
             />
           }
-          label="Male"
+          label="Co"
         />
       </FormControl>
       <br />
