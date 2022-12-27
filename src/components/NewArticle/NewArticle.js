@@ -49,16 +49,32 @@ function NewArticle() {
     quillRef.current = editor;
   }, [profile]);
 
+  useEffect(() => {
+        Axios.get('http://localhost:5000/articles/', {
+  headers: {
+    'Content-Type': 'application/json',
+  }
+})
+  .then(response => {
+    // The data is available in the response.data property
+    setContent(response.data[response.data.length-1].title);
+  })
+  .catch(error => {
+    // An error occurred
+    console.error(error);
+  });
+  }, []);
+
   const handleSubmityswyg = (event) => {
     event.preventDefault();
     const content = quillRef.current.getContents();
-    console.log(content);
-    setContent(content);
-    console.log(profile.token);
+    // console.log(content);
+    // setContent(content);
+    // console.log(profile.token);
     Axios.defaults.headers.common['Authorization'] = `Bearer ${profile.token}`;
-    Axios.post("http://localhost:5000/posts/", 
+    Axios.post("http://localhost:5000/articles/", 
       {
-        title:"ádsd"
+        title:content
       },
     )
       .then(response => {

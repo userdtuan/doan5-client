@@ -1,57 +1,104 @@
-import React, { useState } from "react";
-import DetailsForm from "./DetailsForm";
-import { Button } from "@material-ui/core";
-import { provinces, districts, wards } from "./addressList";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Checkbox,
+  TextField,
+  Button,
+} from "@material-ui/core";
+import FileBase from "react-file-base64";
+import Quill from "quill";
+import "quill/dist/quill.snow.css";
 
-function Page1() {
-  const [showForm, setShowForm] = useState(false);
-  const [fullName, setFullName] = useState("");
-  const [address, setAddress] = useState({});
-  const [addressDetails, setAddressDetails] = useState("");
-  const [phone, setPhone] = useState("");
+const Page1 = () => {
+  useEffect(() => {
+    const editor = new Quill(editorRef.current, {
+      theme: "snow",
+    });
+    quillRef.current = editor;
+  }, []);
+  const editorRef = useRef(null);
+  // useRef hook to store a reference to the Quill editor instance
+  const quillRef = useRef(null);
+  const [formData, setFormData] = useState({
+    gender: false,
+    image: null,
+    name: "",
+    square: 0,
+    content : null
+  });
 
-  const handleClick = () => {
-    setShowForm(true);
-  };
-
-  const handleClose = () => {
-    setShowForm(false);
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    type === "checkbox"
+      ? setFormData({ ...formData, [name]: checked })
+      : setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert(`Submitting form with data:
-            Full Name: ${fullName}
-            Address: ${
-              provinces.find((pr) => pr.code === address.provinceCode).name
-            } ${
-      districts[address.provinceCode].find(
-        (pr) => pr.code === address.districtCode
-      ).name
-    } ${
-      wards[address.districtCode].find((pr) => pr.code === address.wardCode)
-        .name
-    } ${addressDetails}
-            Phone: ${phone}
-          `);
-          setShowForm(false);
+    const content = quillRef.current.getContents();
+    setFormData({...formData,content:content})
+    console.log(formData);
+    // Send the form data to the server or perform other actions here
   };
 
   return (
-    <div>
-      <Button variant="contained" color="primary" onClick={handleClick}>
-        Open Form
+    <form onSubmit={handleSubmit}>
+      <FormControl>
+        <FormLabel>Gender</FormLabel>
+        <FormControlLabel
+          control={
+            <Checkbox
+              name="gender"
+              checked={formData.gender}
+              onChange={handleChange}
+            />
+          }
+          label="Male"
+        />
+      </FormControl>
+      <br />
+      <FormControl>
+        <FormLabel>Image</FormLabel>
+
+        <FileBase
+          type="file"
+          multiple={false}
+          onDone={({ base64 }) => setFormData({ ...formData, image: base64 })}
+        />
+      </FormControl>
+      <br />
+      <FormControl>
+        <FormLabel>Name</FormLabel>
+        <TextField
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+        />
+      </FormControl>
+      <br />
+      <FormControl>
+        <FormLabel>Square</FormLabel>
+        <TextField
+          type="number"
+          name="square"
+          value={formData.square}
+          onChange={handleChange}
+        />
+      </FormControl>
+      <br />
+      <FormControl>
+        <FormLabel>Content</FormLabel>
+        <div ref={editorRef} />
+      </FormControl>
+      <br />
+      <Button type="submit" variant="contained" color="primary">
+        Submit
       </Button>
-      <DetailsForm
-        open={showForm}
-        onClose={handleClose}
-        onSubmit={handleSubmit}
-        onFullName={setFullName}
-        onAddress={setAddress}
-        onAddressDetails={setAddressDetails}
-        onPhone={setPhone}
-      />
-    </div>
+    </form>
   );
-}
+};
 export default Page1;
