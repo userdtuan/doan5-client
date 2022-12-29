@@ -22,11 +22,15 @@ const Page1 = () => {
   // useRef hook to store a reference to the Quill editor instance
   const quillRef = useRef(null);
   const [formData, setFormData] = useState({
+    gac_lung: false,
     nau_an: false,
     image: null,
-    name: "",
+    tieude: "",
     square: 0,
-    content : null
+    content: null,
+    so_nguoi: 0,
+    image_wc: null,
+    image_tu_cua:null
   });
 
   const handleChange = (event) => {
@@ -39,13 +43,23 @@ const Page1 = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const content = quillRef.current.getContents();
-    setFormData({...formData,content:content})
+    setFormData({ ...formData, content: content });
     console.log(formData);
     // Send the form data to the server or perform other actions here
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <FormControl>
+        <FormLabel>Tieu de</FormLabel>
+        <TextField
+          type="text"
+          name="tieude"
+          value={formData.tieude}
+          onChange={handleChange}
+        />
+      </FormControl>
+      <br />
       <FormControl>
         <FormLabel>Nau an</FormLabel>
         <FormControlLabel
@@ -61,8 +75,21 @@ const Page1 = () => {
       </FormControl>
       <br />
       <FormControl>
+        <FormLabel>Gac Lung</FormLabel>
+        <FormControlLabel
+          control={
+            <Checkbox
+              name="gac_lung"
+              checked={formData.gac_lung}
+              onChange={handleChange}
+            />
+          }
+          label="Co"
+        />
+      </FormControl>
+      <br />
+      <FormControl>
         <FormLabel>Image</FormLabel>
-
         <FileBase
           type="file"
           multiple={false}
@@ -71,12 +98,20 @@ const Page1 = () => {
       </FormControl>
       <br />
       <FormControl>
-        <FormLabel>Name</FormLabel>
-        <TextField
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
+        <FormLabel>Image tu ngoai cua</FormLabel>
+        <FileBase
+          type="file"
+          multiple={false}
+          onDone={({ base64 }) => setFormData({ ...formData, image_tu_cua: base64 })}
+        />
+      </FormControl>
+      <br />
+      <FormControl>
+        <FormLabel>Image phong WC</FormLabel>
+        <FileBase
+          type="file"
+          multiple={false}
+          onDone={({ base64 }) => setFormData({ ...formData, image_wc: base64 })}
         />
       </FormControl>
       <br />
@@ -86,6 +121,16 @@ const Page1 = () => {
           type="number"
           name="square"
           value={formData.square}
+          onChange={handleChange}
+        />
+      </FormControl>
+      <br />
+      <FormControl>
+        <FormLabel>Số người ở tối đa</FormLabel>
+        <TextField
+          type="number"
+          name="so_nguoi"
+          value={formData.so_nguoi}
           onChange={handleChange}
         />
       </FormControl>
