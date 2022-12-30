@@ -2,14 +2,25 @@ import React, { useState, useEffect } from "react";
 import { Grid, CircularProgress } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import Axios from "axios";
+import ArticleCard from "./Article/ArticleCard";
+import Article from "./Article/Article";
+import { useLocation,useHistory } from "react-router-dom";
+
+
 
 // import Post from './Post/Post';
 import useStyles from './styles';
 
 const Articles = ({ setCurrentId }) => {
   //   const posts = useSelector((state) => state.posts);
-    const classes = useStyles();
+  const location = useLocation();
+  const classes = useStyles();
   const [articles, setArticles] = useState([]);
+  const [article, setArticle] = useState({});
+  const [triger, setTriger] = useState(false);
+  useEffect(()=>{
+    setTriger(false)
+  },[location])
   useEffect(() => {
     Axios.get("http://localhost:5000/articles/", {
       headers: {
@@ -27,14 +38,17 @@ const Articles = ({ setCurrentId }) => {
 
   return (
     !articles.length ? <CircularProgress /> : (
-        <Grid className={classes.container} container alignItems="stretch" spacing={3}>
-          {articles.map((article) => (
-            <Grid key={article._id} item xs={16} sm={6} md={6}>
-              {/* <Post post={post} setCurrentId={setCurrentId} /> */}
-              {article._id}-{article.tieude}
-            </Grid>
+        // <Grid className={classes.container} container alignItems="stretch" spacing={3}>
+        !triger ? (
+            <div>
+            {articles.map((article) => (
+              <ArticleCard key={article._id} article={article} setTriger={setTriger} setArticle = {setArticle}/>
           ))}
-        </Grid>
+        </div>
+        ) : (
+            <Article key={article._id} article={article}/>
+        )
+        
       )
   );
 };
