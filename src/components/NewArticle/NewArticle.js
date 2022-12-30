@@ -68,9 +68,6 @@ function NewArticle() {
   const handleSubmityswyg = (event) => {
     event.preventDefault();
     const content = quillRef.current.getContents();
-    // console.log(content);
-    // setContent(content);
-    // console.log(profile.token);
     Axios.defaults.headers.common['Authorization'] = `Bearer ${profile.token}`;
     Axios.post("http://localhost:5000/articles/", 
       {

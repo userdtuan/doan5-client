@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import Axios from "axios";
 import {
   FormControl,
   FormControlLabel,
@@ -10,8 +12,16 @@ import {
 import FileBase from "react-file-base64";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
+import { provinces, districts, wards } from "../addressList.js";
+
 
 const Page1 = () => {
+  const location = useLocation();
+  const [profile, setProfile] = useState({});
+  useEffect(() => {
+    const profile = JSON.parse(localStorage.getItem("profile"));
+    setProfile(profile)
+  }, [location]);
   useEffect(() => {
     const editor = new Quill(editorRef.current, {
       theme: "snow",
@@ -30,8 +40,12 @@ const Page1 = () => {
     content: null,
     so_nguoi: 0,
     image_wc: null,
-    image_tu_cua:null
+    image_tu_cua:null,
+    address:""
   });
+  const [addressDetails, setAddressDetails] = useState("");
+  const [address, setAddress] = useState({});
+
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -39,13 +53,44 @@ const Page1 = () => {
       ? setFormData({ ...formData, [name]: checked })
       : setFormData({ ...formData, [name]: value });
   };
-
+  const handleAddressChange = (event) => {
+    const { name, value } = event.target;
+    setAddress((prevAddress) => ({
+      ...prevAddress,
+      [name]: value,
+    }));
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const content = quillRef.current.getContents();
     setFormData({ ...formData, content: content });
-    console.log(formData);
-    // Send the form data to the server or perform other actions here
+    let post = { ...formData, content: content }
+    console.log(post);
+    Axios.defaults.headers.common['Authorization'] = `Bearer ${profile.token}`;
+    Axios.post("http://localhost:5000/articles/", 
+    { post},
+    )
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
+//     Axios.get('http://localhost:5000/posts/', {
+//   headers: {
+//     'Content-Type': 'application/json',
+//   }
+// })
+//   .then(response => {
+//     // The data is available in the response.data property
+//     console.log(response.data);
+//   })
+//   .catch(error => {
+//     // An error occurred
+//     console.error(error);
+//   });
+
   };
 
   return (

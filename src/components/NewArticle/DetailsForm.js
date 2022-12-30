@@ -11,7 +11,7 @@ import {
     MenuItem,
     FormControl,
   } from "@material-ui/core";
-  import { provinces, districts, wards } from "./addressList";
+  import { provinces, districts, wards } from "../addressList.js";
 
 
 function DetailsForm({ open, onClose, onSubmit, onFullName,onAddress,onAddressDetails,onPhone }) {
