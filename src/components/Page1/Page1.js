@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation,useHistory } from "react-router-dom";
 import Axios from "axios";
 import {
   FormControl,
@@ -7,6 +7,8 @@ import {
   FormLabel,
   Checkbox,
   TextField,
+  Select,
+  MenuItem,
   Button,
 } from "@material-ui/core";
 import FileBase from "react-file-base64";
@@ -18,6 +20,7 @@ import { provinces, districts, wards } from "../addressList.js";
 const Page1 = () => {
   const location = useLocation();
   const [profile, setProfile] = useState({});
+  const history = useHistory();
   useEffect(() => {
     const profile = JSON.parse(localStorage.getItem("profile"));
     setProfile(profile)
@@ -27,7 +30,7 @@ const Page1 = () => {
       theme: "snow",
     });
     quillRef.current = editor;
-  }, []);
+  }, [profile]);
   const editorRef = useRef(null);
   // useRef hook to store a reference to the Quill editor instance
   const quillRef = useRef(null);
@@ -45,7 +48,10 @@ const Page1 = () => {
   });
   const [addressDetails, setAddressDetails] = useState("");
   const [address, setAddress] = useState({});
+  const handleAddressDetailChange = (event) => {
+    setAddressDetails(event.target.value);
 
+  };
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -60,18 +66,34 @@ const Page1 = () => {
       [name]: value,
     }));
   };
-  const handleSubmit = (event) => {
+  const handleSubmitCreate = (event) => {
     event.preventDefault();
+
+
+    let a =  `${
+      provinces.find((pr) => pr.code === address.provinceCode).name
+    } ${
+      districts[address.provinceCode].find(
+        (pr) => pr.code === address.districtCode
+      ).name
+    } ${
+      wards[address.districtCode].find((pr) => pr.code === address.wardCode)
+        .name
+    } ${addressDetails}`
+    // console.log(a)
+
+
     const content = quillRef.current.getContents();
     setFormData({ ...formData, content: content });
-    let post = { ...formData, content: content }
+    let post = { ...formData, content: content, address: a}
     console.log(post);
     Axios.defaults.headers.common['Authorization'] = `Bearer ${profile.token}`;
     Axios.post("http://localhost:5000/articles/", 
     { post},
     )
       .then(response => {
-        console.log(response.data);
+        alert(response.data);
+        history.push('/');
       })
       .catch(error => {
         console.error(error);
@@ -94,8 +116,10 @@ const Page1 = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <FormControl>
+    <div>
+      {profile.details != null ? (
+      <form onSubmit={handleSubmitCreate}>
+      <FormControl fullWidth >
         <FormLabel>Tieu de</FormLabel>
         <TextField
           type="text"
@@ -105,7 +129,7 @@ const Page1 = () => {
         />
       </FormControl>
       <br />
-      <FormControl>
+      <FormControl fullWidth >
         <FormLabel>Nau an</FormLabel>
         <FormControlLabel
           control={
@@ -119,7 +143,7 @@ const Page1 = () => {
         />
       </FormControl>
       <br />
-      <FormControl>
+      <FormControl fullWidth >
         <FormLabel>Gac Lung</FormLabel>
         <FormControlLabel
           control={
@@ -133,7 +157,63 @@ const Page1 = () => {
         />
       </FormControl>
       <br />
-      <FormControl>
+      <FormControl fullWidth margin="normal">
+      <FormLabel>Tinh, Thành Phố</FormLabel>
+              <Select
+                name="provinceCode"
+                value={address.provinceCode}
+                onChange={handleAddressChange}
+              >
+                {provinces.map((province) => (
+                  <MenuItem key={province.code} value={province.code}>
+                    {province.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl fullWidth margin="normal">
+            <FormLabel>Quận, Huyện</FormLabel>
+              <Select
+                name="districtCode"
+                value={address.districtCode}
+                onChange={handleAddressChange}
+              >
+                {districts[address.provinceCode]?.map((district) => (
+                  <MenuItem key={district.code} value={district.code}>
+                    {district.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl fullWidth margin="normal">
+            <FormLabel>Phường</FormLabel>
+              <Select
+                name="wardCode"
+                value={address.wardCode}
+                onChange={handleAddressChange}
+              >
+                {wards[address.districtCode]?.map((ward) => (
+                  <MenuItem key={ward.code} value={ward.code}>
+                    {ward.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+      <br />
+      <FormControl fullWidth >
+        <FormLabel>Số nhà, tên đường</FormLabel>
+        <TextField
+              // label="Address Details"
+              type="text"
+              fullWidth
+              margin="normal"
+              required
+              value={addressDetails}
+              onChange={handleAddressDetailChange}
+            />
+      </FormControl>
+      <br />
+      <FormControl fullWidth >
         <FormLabel>Image</FormLabel>
         <FileBase
           type="file"
@@ -142,7 +222,7 @@ const Page1 = () => {
         />
       </FormControl>
       <br />
-      <FormControl>
+      <FormControl fullWidth >
         <FormLabel>Image tu ngoai cua</FormLabel>
         <FileBase
           type="file"
@@ -151,7 +231,7 @@ const Page1 = () => {
         />
       </FormControl>
       <br />
-      <FormControl>
+      <FormControl fullWidth >
         <FormLabel>Image phong WC</FormLabel>
         <FileBase
           type="file"
@@ -160,8 +240,8 @@ const Page1 = () => {
         />
       </FormControl>
       <br />
-      <FormControl>
-        <FormLabel>Square</FormLabel>
+      <FormControl fullWidth >
+        <FormLabel>Dien tich</FormLabel>
         <TextField
           type="number"
           name="square"
@@ -170,7 +250,7 @@ const Page1 = () => {
         />
       </FormControl>
       <br />
-      <FormControl>
+      <FormControl fullWidth >
         <FormLabel>Số người ở tối đa</FormLabel>
         <TextField
           type="number"
@@ -180,15 +260,17 @@ const Page1 = () => {
         />
       </FormControl>
       <br />
-      <FormControl>
+      <FormControl fullWidth >
         <FormLabel>Content</FormLabel>
+        <br />
         <div ref={editorRef} />
       </FormControl>
       <br />
       <Button type="submit" variant="contained" color="primary">
         Submit
       </Button>
-    </form>
+    </form>):("á")}
+    </div>
   );
 };
 export default Page1;
