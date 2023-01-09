@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
+import { AppBar, Typography, Toolbar, Avatar, Button} from "@material-ui/core";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import decode from "jwt-decode";
@@ -8,6 +8,7 @@ import memories from "../../images/memories.png";
 import * as actionType from "../../constants/actionTypes";
 import useStyles from "./styles";
 import { test } from "../../actions/auth";
+import iconSearch from "../../images/search.png";
 
 const testHandler = async () => {
   const a = test("tuan");
@@ -48,40 +49,52 @@ const Navbar = () => {
           component={Link}
           to="/"
           className={classes.heading}
-          variant="h2"
+          variant="h3"
           align="center"
         >
-          Memories
+        N&T Home
         </Typography>
-        <img className={classes.image} src={memories} alt="icon" height="60" />
       </div>
+      <div className={classes.search}>
+        <div className="input-group">
+          <input className="form-control py-2" type="text" placeholder="Tìm kiếm phòng trọ..."/>
+          <div className="input-group-append">
+              <Button className="btn btn-outline-secondary">
+                <img src={iconSearch} width="25" height="25" />
+              </Button>
+          </div>
+        </div>
+      </div>
+      
       <Toolbar className={classes.toolbar}>
         <Button
           component={Link}
-          to="/page1"
+          to="/new-article"
           variant="contained"
           color="default"
+          className={classes.btnNav}
         >
-          Page1
+          Đăng tin
         </Button>
         <Button
           component={Link}
           variant="contained"
           color="default"
           onClick={() => testHandler()}
+          className={classes.btnNav}
         >
-          test
+          Tin yêu thích
         </Button>
         {user?.result ? (
           <div className={classes.profile}>
-            <Button
+            {/* <Button
               component={Link}
               to="/new-article"
               variant="contained"
               color="default"
             >
               New
-            </Button>
+            </Button> */}
             <Avatar
               className={classes.purple}
               alt={user?.result.name}
@@ -89,13 +102,13 @@ const Navbar = () => {
             >
               {user?.result.name.charAt(0)}
             </Avatar>
-            <Typography className={classes.userName} variant="h6">
+            <Typography className={classes.userName} variant="h8">
               {user?.result.name}
             </Typography>
             <Button
               variant="contained"
-              className={classes.logout}
               color="secondary"
+              className={classes.btnLogin}
               onClick={logout}
             >
               Logout
@@ -106,7 +119,7 @@ const Navbar = () => {
             component={Link}
             to="/auth"
             variant="contained"
-            color="primary"
+            className={classes.btnLogin}
           >
             Sign In
           </Button>

@@ -12,8 +12,11 @@ export default makeStyles((theme) => ({
     padding: '10px 50px',
   },
   heading: {
-    color: 'rgba(0,183,255, 1)',
+    color: '#000000',
     textDecoration: 'none',
+    fontFamily: 'JetBrains Mono',
+    fontSize: 30,
+    fontWeight: 'bold',
   },
   image: {
     marginLeft: '15px',
@@ -21,16 +24,18 @@ export default makeStyles((theme) => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'flex-end',
-    width: '400px',
+    width: 'auto',
   },
   profile: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: '400px',
+    width: 'auto',
+    paddingLeft: 10,
   },
   userName: {
     display: 'flex',
     alignItems: 'center',
+    paddingLeft: 10,
   },
   brandContainer: {
     display: 'flex',
@@ -39,5 +44,18 @@ export default makeStyles((theme) => ({
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
+  },
+  search: {
+    width: "40%",
+    paddingLeft: 50
+  },
+  btnLogin: {
+    backgroundColor: "#FBD07C",
+    color: "#000",
+    marginLeft: 10,
+  },
+  btnNav: {
+    backgroundColor: "#FFF",
+    width: 'auto',
   },
 }));

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Grid, CircularProgress } from "@material-ui/core";
+import { Grid, CircularProgress, Container } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import Axios from "axios";
 import ArticleCard from "./Article/ArticleCard";
 import Article from "./Article/Article";
 import { useLocation,useHistory } from "react-router-dom";
-
+import slider from "../../images/slider.jpg"
 
 
 // import Post from './Post/Post';
@@ -40,13 +40,29 @@ const Articles = ({ setCurrentId }) => {
     !articles.length ? <CircularProgress /> : (
         // <Grid className={classes.container} container alignItems="stretch" spacing={3}>
         !triger ? (
-            <div>
+          
+          <div>
+              
+            <img src={slider} width="100%" height="500" style={{objectFit: "cover", borderRadius: 20}}/>
+            
+            <div style={{borderRadius: 15, backgroundColor: "#FFF", marginTop: 30,}}> 
+            <Container>
+            <h3 style={{paddingTop: 30, paddingBottom: 20}}>Tin Dành cho bạn </h3>
             {articles.map((article) => (
               <ArticleCard key={article._id} article={article} setTriger={setTriger} setArticle = {setArticle}/>
-          ))}
+            ))}
+            </Container>
+            </div>
+            
         </div>
         ) : (
-            <Article key={article._id} article={article}/>
+          <div style={{borderRadius: 15, backgroundColor: "#FFF", marginTop: 30,}}>
+            <Container>
+              <Article key={article._id} article={article}/>
+            </Container>
+          </div>
+            
+
         )
         
       )

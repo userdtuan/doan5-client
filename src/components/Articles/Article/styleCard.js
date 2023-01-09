@@ -49,4 +49,21 @@ export default makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
   },
+  Price: {
+    color: 'red',
+    fontSize: 20,
+    fontWeight: 'bold',
+
+  },
+  bottomForm: {
+    display: 'flex',
+  },
+  address: {
+    display: 'flex',
+    paddingLeft: 10,
+  },
+  iconLove: {
+    width: 30,
+    height: 30,
+  }
 });
