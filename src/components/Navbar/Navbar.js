@@ -67,26 +67,29 @@ const Navbar = () => {
       </div>
       
       <Toolbar className={classes.toolbar}>
-        <Button
-          component={Link}
-          to="/new-article"
-          variant="contained"
-          color="default"
-          className={classes.btnNav}
-        >
-          Đăng tin
-        </Button>
-        <Button
-          component={Link}
-          variant="contained"
-          color="default"
-          onClick={() => testHandler()}
-          className={classes.btnNav}
-        >
-          Tin yêu thích
-        </Button>
+        
         {user?.result ? (
+          <div className="row">
+            <Button
+              component={Link}
+              to="/new-article"
+              variant="contained"
+              color="default"
+              className={classes.btnNav}
+            >
+              Đăng tin
+            </Button>
+            <Button
+              component={Link}
+              variant="contained"
+              color="default"
+              onClick={() => testHandler()}
+              className={classes.btnNav}
+            >
+              Tin yêu thích
+            </Button>
           <div className={classes.profile}>
+            
             {/* <Button
               component={Link}
               to="/new-article"
@@ -113,6 +116,8 @@ const Navbar = () => {
             >
               Logout
             </Button>
+          </div>
+          
           </div>
         ) : (
           <Button

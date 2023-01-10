@@ -117,11 +117,12 @@ const NewArticle = () => {
   };
 
   return (
-    <div>
+    <div className="container" style={{backgroundColor: '#fff', borderRadius: 10, padding: 40}}>
       {profile.details != null ? (
       <form onSubmit={handleSubmitCreate}>
+        <h4>Đăng tin</h4>
       <FormControl fullWidth >
-        <FormLabel>Tieu de</FormLabel>
+        <FormLabel>Tiêu đề</FormLabel>
         <TextField
           type="text"
           name="tieude"
@@ -130,33 +131,86 @@ const NewArticle = () => {
         />
       </FormControl>
       <br />
-      <FormControl fullWidth >
-        <FormLabel>Nau an</FormLabel>
-        <FormControlLabel
-          control={
-            <Checkbox
-              name="nau_an"
-              checked={formData.nau_an}
-              onChange={handleChange}
-            />
-          }
-          label="Co"
-        />
-      </FormControl>
-      <br />
-      <FormControl fullWidth >
-        <FormLabel>Gac Lung</FormLabel>
-        <FormControlLabel
-          control={
-            <Checkbox
-              name="gac_lung"
-              checked={formData.gac_lung}
-              onChange={handleChange}
-            />
-          }
-          label="Co"
-        />
-      </FormControl>
+      <div className="row" style={{paddingTop: 20, paddingLeft: 20, justifyContent: 'space-between'}}>
+        <FormControl >
+          <FormLabel>Nấu ăn</FormLabel>
+          <FormControlLabel
+            control={
+              <Checkbox
+                name="nau_an"
+                checked={formData.nau_an}
+                onChange={handleChange}
+              />
+            }
+            label="Co"
+          />
+        </FormControl>
+        <FormControl >
+          <FormLabel>Gác lửng</FormLabel>
+          <FormControlLabel
+            control={
+              <Checkbox
+                name="gac_lung"
+                checked={formData.gac_lung}
+                onChange={handleChange}
+              />
+            }
+            label="Co"
+          />
+        </FormControl>
+        <FormControl >
+          <FormLabel>Nau an</FormLabel>
+          <FormControlLabel
+            control={
+              <Checkbox
+                name="nau_an"
+                checked={formData.nau_an}
+                onChange={handleChange}
+              />
+            }
+            label="Co"
+          />
+        </FormControl>
+        <FormControl >
+          <FormLabel>Nau an</FormLabel>
+          <FormControlLabel
+            control={
+              <Checkbox
+                name="nau_an"
+                checked={formData.nau_an}
+                onChange={handleChange}
+              />
+            }
+            label="Co"
+          />
+        </FormControl>
+        <FormControl >
+          <FormLabel>Nau an</FormLabel>
+          <FormControlLabel
+            control={
+              <Checkbox
+                name="nau_an"
+                checked={formData.nau_an}
+                onChange={handleChange}
+              />
+            }
+            label="Co"
+          />
+        </FormControl>
+        <FormControl >
+          <FormLabel>Nau an</FormLabel>
+          <FormControlLabel
+            control={
+              <Checkbox
+                name="nau_an"
+                checked={formData.nau_an}
+                onChange={handleChange}
+              />
+            }
+            label="Co"
+          />
+        </FormControl>
+      </div>
       <br />
       <FormControl fullWidth margin="normal">
       <FormLabel>Tinh, Thành Phố</FormLabel>
@@ -271,14 +325,13 @@ const NewArticle = () => {
         />
       </FormControl>
       <br />
-      <FormControl fullWidth >
+      <FormControl fullWidth style={{paddingTop: 20}}>
         <FormLabel>Content</FormLabel>
-        <br />
         <div ref={editorRef} />
       </FormControl>
       <br />
-      <Button type="submit" variant="contained" color="primary">
-        Submit
+      <Button type="submit" variant="contained" color="primary" style={{marginTop: 30}}>
+        Đăng tin
       </Button>
     </form>):(
       <ButtonDetail/>

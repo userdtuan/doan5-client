@@ -56,10 +56,8 @@ const Articles = ({ setCurrentId }) => {
             
         </div>
         ) : (
-          <div style={{borderRadius: 15, backgroundColor: "#FFF", marginTop: 30,}}>
-            <Container>
-              <Article key={article._id} article={article}/>
-            </Container>
+          <div>
+            <Article key={article._id} article={article}/>
           </div>
             
 
