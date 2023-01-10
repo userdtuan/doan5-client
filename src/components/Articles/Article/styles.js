@@ -7,7 +7,7 @@ export default makeStyles({
     paddingTop: 40,
     paddingBottom: 40,
     width: '100%',
-    height: '90vh',
+    height: '100%',
     borderRadius: 15, backgroundColor: "#FFF",
   },
   border: {

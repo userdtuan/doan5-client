@@ -98,9 +98,16 @@ const Article = ({article}) => {
               <div style={{paddingTop: 10, marginLeft: 0, marginRight: 0, borderBottom: "1px solid #5B5757"}}>
                 <h5 style={{fontWeight: 'bold'}}>Mô tả chi tiết</h5>
                 <div>
-                  {/* {Object.keys(article.content).map(key => (
-                    <div key={key}>{key}: {article.content[key]}</div>
-                  ))} */}
+                  {article.content.ops.map((op) => {
+                    if (op.insert) {
+                      if (typeof op.insert === "string") {
+                        return <p>{op.insert}</p>;
+                      } else if (op.insert.image) {
+                        return <img src={op.insert.image} alt="" />;
+                      }
+                    }
+                    return null;
+                  })}
                 </div>
               </div>
             </div>

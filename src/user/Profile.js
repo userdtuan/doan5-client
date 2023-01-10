@@ -8,7 +8,6 @@ import iconLoveActive from '../images/loveActive.png';
 import iconAddress from '../images/place.png';
 import memories from '../images/nhat.JPG';
 import iconPhone from '../images/phone.png';
-import iconReport from '../images/report.png';
 import iconDate from '../images/date.png';
 import iconPost from '../images/create.png';
 import iconSocial from '../images/social.png';
@@ -16,6 +15,11 @@ import iconFace from '../images/facebook.png';
 import iconIns from '../images/insta.png';
 import iconTw from '../images/tweeter.png';
 import image from '../images/slider.jpg';
+import iconHide from '../images/hide.png';
+import iconShow from '../images/show.png';
+import iconEdit from '../images/edit.png';
+import iconDel from '../images/delete.png';
+
 import Article from "../components/Articles/Article/Article";
 
 const Profile = () => {
@@ -56,10 +60,10 @@ const Profile = () => {
                                         </div>
                                     </CardContent>
                                     </Grid>
-                                    <Grid item xs={1} style={{alignItems: 'center', justifyContent: 'center'}}>
-                                    <Button style={{marginTop: 60}} >
-                                        <img src={iconLove} className={classes.iconLove}></img>
-                                    </Button>
+                                    <Grid item xs={1} style={{display: 'grid', justifyContent: 'end', paddingRight: 10, paddingTop: 15}}>
+                                        <img src={iconEdit} className={classes.iconLove}></img>
+                                        <img src={iconShow} className={classes.iconLove}></img>
+                                        <img src={iconDel} className={classes.iconLove}></img>
                                     </Grid>
                                 </Grid>
                                 </Card>
@@ -79,10 +83,10 @@ const Profile = () => {
                                         </div>
                                     </CardContent>
                                     </Grid>
-                                    <Grid item xs={1} style={{alignItems: 'center', justifyContent: 'center'}}>
-                                    <Button style={{marginTop: 60}} >
-                                        <img src={iconLove} className={classes.iconLove}></img>
-                                    </Button>
+                                    <Grid item xs={1} style={{display: 'grid', justifyContent: 'end', paddingRight: 10, paddingTop: 15}}>
+                                        <img src={iconEdit} className={classes.iconLove}></img>
+                                        <img src={iconShow} className={classes.iconLove}></img>
+                                        <img src={iconDel} className={classes.iconLove}></img>
                                     </Grid>
                                 </Grid>
                                 </Card>
@@ -108,10 +112,10 @@ const Profile = () => {
                                         </div>
                                     </CardContent>
                                     </Grid>
-                                    <Grid item xs={1} style={{alignItems: 'center', justifyContent: 'center'}}>
-                                    <Button style={{marginTop: 60}} >
-                                        <img src={iconLove} className={classes.iconLove}></img>
-                                    </Button>
+                                    <Grid item xs={1} style={{display: 'grid', justifyContent: 'end', paddingRight: 10, paddingTop: 15}}>
+                                        <img src={iconEdit} className={classes.iconLove}></img>
+                                        <img src={iconHide} className={classes.iconLove}></img>
+                                        <img src={iconDel} className={classes.iconLove}></img>
                                     </Grid>
                                 </Grid>
                                 </Card>
@@ -131,10 +135,10 @@ const Profile = () => {
                                         </div>
                                     </CardContent>
                                     </Grid>
-                                    <Grid item xs={1} style={{alignItems: 'center', justifyContent: 'center'}}>
-                                    <Button style={{marginTop: 60}} >
-                                        <img src={iconLove} className={classes.iconLove}></img>
-                                    </Button>
+                                    <Grid item xs={1} style={{display: 'grid', justifyContent: 'end', paddingRight: 10, paddingTop: 15}}>
+                                        <img src={iconEdit} className={classes.iconLove}></img>
+                                        <img src={iconHide} className={classes.iconLove}></img>
+                                        <img src={iconDel} className={classes.iconLove}></img>
                                     </Grid>
                                 </Grid>
                                 </Card>
