@@ -105,7 +105,7 @@ const Navbar = () => {
             >
               {user?.result.name.charAt(0)}
             </Avatar>
-            <Typography className={classes.userName} variant="h8">
+            <Typography className={classes.userName} variant="h8" onClick={()=> history.push('/profile')}>
               {user?.result.name}
             </Typography>
             <Button

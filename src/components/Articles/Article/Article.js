@@ -14,12 +14,14 @@ import iconDientich from '../../../images/dientich.png';
 import iconPhone from '../../../images/phone.png';
 import iconReport from '../../../images/report.png';
 import QRCode from 'qrcode.react';
+import Axios from "axios";
 
 const Article = ({article}) => {
   const classes = useStyles();
   const images = [article.image, article.image_wc, article.image_tu_cua];
   const [currentImage, setCurrentImage] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [userProfile, setUserProfile] = useState({});
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -27,6 +29,21 @@ const Article = ({article}) => {
     }, 10000);
     return () => clearInterval(interval);
   }, [currentImage]);
+
+  useEffect(() => {
+    Axios.get(`http://localhost:5000/user/infor/${article.user_id}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        setUserProfile(response.data)
+      })
+      .catch((error) => {
+        // An error occurred
+        console.error(error);
+      });
+  }, [article]);
 
   const previousImage = () => {
     setCurrentImage((currentImage - 1 + images.length) % images.length);
@@ -115,7 +132,10 @@ const Article = ({article}) => {
               <div>
                 <div className="row" style={{alignItems: 'center'}}>
                   <img src={memories} className={classes.avatar}></img>
-                  <span className={classes.name}>{article.user_id}</span>
+                  <span className={classes.name}>{userProfile.full_name}</span>
+                  <br/>
+                  <p><span className={classes.name}>Địa chỉ: </span><span>{userProfile.address}</span></p>
+                  <p><span className={classes.name}>Số điện thoại: </span><span>{userProfile.phone}</span></p>
                 </div>
                 <div className="row" style={{paddingTop: 20, }}>
                   <Button style={{backgroundColor: '#FED082', width: '100%', alignItems: 'center'}} href="tel:0708026082" onClick={toggleDiv}><img src={iconPhone} className={classes.iconPhone}></img>Liên hệ người bán</Button>

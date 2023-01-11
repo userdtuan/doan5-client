@@ -32,6 +32,7 @@ const App = () => (
     <Route path="/admin/manager-report" exact component={ManagerReport} />
     <Route path="/user" exact component={Account} />
     <Route path="/profile" exact component={Profile} />
+    <Route path="/edit/:article_id" exact component={NewArticle} />
   </BrowserRouter>
 );
 
