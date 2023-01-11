@@ -38,6 +38,9 @@ const NewArticle = () => {
   const quillRef = useRef(null);
   const [formData, setFormData] = useState({
     gac_lung: false,
+    wifi: false,
+    may_giat: false,
+    thang_may: false,
     nau_an: false,
     image: null,
     giatien: 0,
@@ -52,7 +55,10 @@ const NewArticle = () => {
   const [addressDetails, setAddressDetails] = useState("");
   const [address, setAddress] = useState({});
   const handleUpdate = () =>{
-    let post = formData
+    
+    const content = quillRef.current.getContents();
+    let post = { ...formData, content: content }
+    // setFormData({ ...formData, content: content });
     console.log(post);
     Axios.defaults.headers.common["Authorization"] = `Bearer ${profile.token}`;
     Axios.post("http://localhost:5000/articles/update", { post })
@@ -73,6 +79,7 @@ const NewArticle = () => {
       .then((response) => {
         let data = response.data;
         setFormData(data);
+        quillRef.current.setContents(data.content)
       })
       .catch((error) => {
         console.error(error);
@@ -186,12 +193,12 @@ const NewArticle = () => {
               />
             </FormControl>
             <FormControl>
-              <FormLabel>Nau an</FormLabel>
+              <FormLabel>Wifi</FormLabel>
               <FormControlLabel
                 control={
                   <Checkbox
-                    name="nau_an"
-                    checked={formData.nau_an}
+                    name="wifi"
+                    checked={formData.wifi}
                     onChange={handleChange}
                   />
                 }
@@ -199,12 +206,12 @@ const NewArticle = () => {
               />
             </FormControl>
             <FormControl>
-              <FormLabel>Nau an</FormLabel>
+              <FormLabel>Máy giặt</FormLabel>
               <FormControlLabel
                 control={
                   <Checkbox
-                    name="nau_an"
-                    checked={formData.nau_an}
+                    name="may_giat"
+                    checked={formData.may_giat}
                     onChange={handleChange}
                   />
                 }
@@ -212,25 +219,12 @@ const NewArticle = () => {
               />
             </FormControl>
             <FormControl>
-              <FormLabel>Nau an</FormLabel>
+              <FormLabel>Thang máy</FormLabel>
               <FormControlLabel
                 control={
                   <Checkbox
-                    name="nau_an"
-                    checked={formData.nau_an}
-                    onChange={handleChange}
-                  />
-                }
-                label="Co"
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel>Nau an</FormLabel>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    name="nau_an"
-                    checked={formData.nau_an}
+                    name="thang_may"
+                    checked={formData.thang_may}
                     onChange={handleChange}
                   />
                 }

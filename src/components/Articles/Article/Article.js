@@ -15,8 +15,11 @@ import iconPhone from '../../../images/phone.png';
 import iconReport from '../../../images/report.png';
 import QRCode from 'qrcode.react';
 import Axios from "axios";
+import { useLocation, useHistory, useParams } from "react-router-dom";
+
 
 const Article = ({article}) => {
+  const history = useHistory();
   const classes = useStyles();
   const images = [article.image, article.image_wc, article.image_tu_cua];
   const [currentImage, setCurrentImage] = useState(0);
@@ -132,7 +135,7 @@ const Article = ({article}) => {
               <div>
                 <div className="row" style={{alignItems: 'center'}}>
                   <img src={memories} className={classes.avatar}></img>
-                  <span className={classes.name}>{userProfile.full_name}</span>
+                  <span className={classes.name} onClick={()=>history.push('/user')}>{userProfile.full_name}</span>
                   <br/>
                   <p><span className={classes.name}>Địa chỉ: </span><span>{userProfile.address}</span></p>
                   <p><span className={classes.name}>Số điện thoại: </span><span>{userProfile.phone}</span></p>
