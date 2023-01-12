@@ -135,9 +135,9 @@ const Article = ({article}) => {
               <div>
                 <div className="row" style={{alignItems: 'center'}}>
                   <img src={memories} className={classes.avatar}></img>
-                  <span className={classes.name} onClick={()=>history.push('/user')}>{userProfile.full_name}</span>
+                  <span className={classes.name} onClick={()=>history.push(`/user/${userProfile.user_id}`)}>{userProfile.full_name}</span>
                   <br/>
-                  <p><span className={classes.name}>Địa chỉ: </span><span>{userProfile.address}</span></p>
+                  <p><span className={classes.name}> </span></p>
                   <p><span className={classes.name}>Số điện thoại: </span><span>{userProfile.phone}</span></p>
                 </div>
                 <div className="row" style={{paddingTop: 20, }}>

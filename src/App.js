@@ -31,7 +31,7 @@ const App = () => (
     <Route path="/admin/manager-user" exact component={ManagerUser} />
     <Route path="/admin/manager-post" exact component={ManagerPosts} />
     <Route path="/admin/manager-report" exact component={ManagerReport} />
-    <Route path="/user" exact component={Account} />
+    <Route path="/user/:user" exact component={Account} />
     <Route path="/profile" exact component={Profile} />
     <Route path="/edit/:article_id" exact component={NewArticle} />
     <Route path="/search/:search" exact component={HomeSearch} />
