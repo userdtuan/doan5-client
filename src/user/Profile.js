@@ -20,6 +20,7 @@ import iconShow from "../images/show.png";
 import iconEdit from "../images/edit.png";
 import iconDel from "../images/delete.png";
 import Axios from "axios";
+import ButtonDetail from "../components/NewArticle/ButtonDetail";
 
 import Article from "../components/Articles/Article/Article";
 
@@ -268,7 +269,7 @@ const Profile = () => {
                 className="row"
                 style={{ justifyContent: "center", paddingTop: 20 }}
               >
-                <Button
+                {/* <Button
                   style={{
                     backgroundColor: "#FED082",
                     border: "1px solid #FED082",
@@ -276,7 +277,8 @@ const Profile = () => {
                   }}
                 >
                   Chỉnh sửa thông tin
-                </Button>
+                </Button> */}
+                <ButtonDetail name = {"Chỉnh sửa thông tin"} user_profile = {profile?.details}/>
               </div>
             </div>
           </div>

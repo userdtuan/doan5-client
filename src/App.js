@@ -13,6 +13,7 @@ import ManagerPosts from './dashboard/ManagerPosts';
 import ManagerReport from './dashboard/ManagerReport';
 import Account from './user/Account';
 import Profile from './user/Profile';
+import HomeSearch from './components/Home/HomeSearch';
 
 const App = () => (
   <BrowserRouter>
@@ -33,6 +34,7 @@ const App = () => (
     <Route path="/user" exact component={Account} />
     <Route path="/profile" exact component={Profile} />
     <Route path="/edit/:article_id" exact component={NewArticle} />
+    <Route path="/search/:search" exact component={HomeSearch} />
   </BrowserRouter>
 );
 

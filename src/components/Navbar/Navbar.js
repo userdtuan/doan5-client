@@ -9,6 +9,9 @@ import * as actionType from "../../constants/actionTypes";
 import useStyles from "./styles";
 import { test } from "../../actions/auth";
 import iconSearch from "../../images/search.png";
+import {
+  TextField
+} from "@material-ui/core";
 
 const testHandler = async () => {
   const a = test("tuan");
@@ -21,7 +24,19 @@ const Navbar = () => {
   const location = useLocation();
   const history = useHistory();
   const classes = useStyles();
+  const [search, setSearch] = useState("")
+  const [searchText, setSearchText] = useState("")
 
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+
+  };
+  const handleSearchClick = () => {
+    if(search!="")
+    history.push(`/search/${search}`);
+    else
+    history.push('/');
+  };
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
 
@@ -57,9 +72,18 @@ const Navbar = () => {
       </div>
       <div className={classes.search}>
         <div className="input-group">
-          <input className="form-control py-2" type="text" placeholder="Tìm kiếm phòng trọ..."/>
+          <TextField
+                placeholder="Tìm kiếm phòng trọ..."
+                className="form-control py-2"
+                type="text"
+                fullWidth
+                margin="normal"
+                required
+                value={search}
+                onChange={handleSearchChange}
+              />
           <div className="input-group-append">
-              <Button className="btn btn-outline-secondary">
+              <Button className="btn btn-outline-secondary" onClick={handleSearchClick}>
                 <img src={iconSearch} width="25" height="25" />
               </Button>
           </div>
@@ -79,7 +103,7 @@ const Navbar = () => {
             >
               Đăng tin
             </Button>
-            <Button
+            {/* <Button
               component={Link}
               variant="contained"
               color="default"
@@ -87,7 +111,7 @@ const Navbar = () => {
               className={classes.btnNav}
             >
               Tin yêu thích
-            </Button>
+            </Button> */}
           <div className={classes.profile}>
             
             {/* <Button

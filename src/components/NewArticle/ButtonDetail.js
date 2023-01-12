@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import Axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
 import DetailsForm from "./DetailsForm";
@@ -21,7 +21,8 @@ import {
   FormControl,
 } from "@material-ui/core";
 
-function ButtonDetail() {
+function ButtonDetail({name, user_profile}) {
+  const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
   const [profile, setProfile] = useState({});
@@ -30,6 +31,7 @@ function ButtonDetail() {
   const [address, setAddress] = useState({});
   const [addressDetails, setAddressDetails] = useState("");
   const [phone, setPhone] = useState("");
+  const [addressud, setAddressud] = useState("");
   useEffect(() => {
     const profile = JSON.parse(localStorage.getItem("profile"));
     setProfile(profile);
@@ -143,11 +145,40 @@ function ButtonDetail() {
     dispatch(updateUserDetail(param));
     setShowForm(false);
   };
+  const handleUpdate = (event) => {
+    event.preventDefault();
+    const param = {
+      token: profile.token,
+      user_id: profile.result._id,
+      full_name: fullName,
+      address: addressud,
+      phone: phone
+    }
+    // console.log(param)
+    Axios.post(
+      `http://localhost:5000/user/update`,param,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => {
+        // console.error(response.data);
+        localStorage.setItem("profile", JSON.stringify({ ...response.data }));
+        window.location.reload();
+      })
+      .catch((error) => {
+        // An error occurred
+        console.error(error);
+      });
+    // http://localhost:5000/user/update
+  };
   return (
     <div>
         <div>
           <Button variant="contained" color="primary" onClick={handleClick}>
-            Open Form
+            {name ? name : "Open Form"}
           </Button>
           <DetailsForm
             open={showForm}
@@ -157,6 +188,9 @@ function ButtonDetail() {
             onAddress={setAddress}
             onAddressDetails={setAddressDetails}
             onPhone={setPhone}
+            userProfile = {user_profile}
+            onAddressud = {setAddressud}
+            onUpdate={handleUpdate}
           />
         </div>
 
